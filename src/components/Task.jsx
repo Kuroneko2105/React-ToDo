@@ -1,61 +1,22 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useState } from "react";
 
-function Task() 
+function Task({
+    tasks,
+    newTask,
+    setNewTask,
+    addTask,
+    toggleTask
+})
 {
-    const [newTask, setNewTask] = useState("");
-
-    const [tasks, setTasks] = useState
-    ([
-        {
-        id: 1,
-        name: "Nauczyć się Reacta",
-        completed: true
-        },
-        {
-        id: 2,
-        name: "Nauczyć się useState",
-        completed: false
-        },
-        {
-        id: 3,
-        name: "Zrobić projekt",
-        completed: true
-        }
-    ]);
-
-    function toggleTask(id)
-    {
-        const updatedTasks = tasks.map(task => {
-            if(task.id === id)
-            {
-                return {
-                    ...task,
-                    completed: !task.completed
-                };
-            }
-            return task;
-        });
-        setTasks(updatedTasks);
-    }
-
-    function addTask(event)
-    {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        setTasks([
-            ...tasks,
-            {
-                id: Math.max(...tasks.map(task => task.id)) + 1,
-                name: newTask,
-                completed: false
-            }
-        ]);
-    }
+        addTask();
+    };
 
     return (
         <div className="d-flex justify-content-center">
-            <Form onSubmit={addTask}>
+            <Form onSubmit={handleSubmit}>
                 <div className="d-flex justify-content-center mb-3">
                     <Form.Control
                         placeholder = "Dodaj nowe zadanie"
